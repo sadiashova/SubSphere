@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, Suspense } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -12,9 +12,11 @@ import {
   ArrowLeft,
   Smartphone,
   Banknote,
-  Repeat
+  Repeat,
+  User as UserIcon
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
 function CheckoutContent() {
   const router = useRouter();
@@ -23,6 +25,7 @@ function CheckoutContent() {
   const discountRate = couponQuery === '10' ? 0.1 : 0;
 
   const { cart, subtotal, clearCart } = useCart();
+  const { user } = useAuth();
 
   // Form states
   const [formData, setFormData] = useState({
@@ -34,6 +37,20 @@ function CheckoutContent() {
     postalCode: '1213',
     paymentMethod: 'card',
   });
+
+  // Auto-fill from logged-in user if available
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: user.name || prev.name,
+        email: user.email || prev.email,
+        phone: user.phone || prev.phone,
+        address: user.address || prev.address,
+        city: user.city || prev.city,
+      }));
+    }
+  }, [user]);
 
   const [loading, setLoading] = useState(false);
   const [orderComplete, setOrderComplete] = useState<any>(null);
@@ -52,6 +69,7 @@ function CheckoutContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          userId: user?.id || null,
           customerName: formData.name,
           customerEmail: formData.email,
           customerPhone: formData.phone,
@@ -98,7 +116,7 @@ function CheckoutContent() {
             Thank You, {orderComplete.customerName}!
           </h1>
           <p className="text-sm text-slate-600">
-            Your box is being lovingly prepped. Order reference ID:{' '}
+            Your box is being prepped. Order tracking ID:{' '}
             <strong className="text-indigo-600 font-mono">{orderComplete.orderNumber}</strong>
           </p>
         </div>
@@ -165,6 +183,15 @@ function CheckoutContent() {
         </Link>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Secure Checkout</h1>
       </div>
+
+      {!user && (
+        <div className="p-4 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-between text-xs text-indigo-900">
+          <span>Already have an account? Sign in for saved addresses and fast 1-click checkout.</span>
+          <Link href="/login" className="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors">
+            Sign In
+          </Link>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -402,4 +429,3 @@ export default function CheckoutPage() {
     </Suspense>
   );
 }
-

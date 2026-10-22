@@ -37,6 +37,7 @@ model Product {
 model User {
   id            String         @id @default(uuid())
   email         String         @unique
+  password      String
   name          String
   avatar        String?
   phone         String?
@@ -111,4 +112,3 @@ model Review {
   comment   String
   createdAt DateTime @default(now())
 }
-

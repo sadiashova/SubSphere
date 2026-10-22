@@ -5,6 +5,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const {
+      userId,
       customerName,
       customerEmail,
       customerPhone,
@@ -34,6 +35,7 @@ export async function POST(request: NextRequest) {
     const order = await prisma.order.create({
       data: {
         orderNumber,
+        userId: userId || null,
         customerName,
         customerEmail,
         customerPhone,
@@ -70,6 +72,7 @@ export async function POST(request: NextRequest) {
 
         await prisma.subscription.create({
           data: {
+            userId: userId || null,
             productId: item.product.id,
             plan: item.selectedPlan || 'MONTHLY',
             status: 'ACTIVE',

@@ -1,3 +1,14 @@
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  address?: string | null;
+  city?: string | null;
+  avatar?: string | null;
+  createdAt: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -37,6 +48,7 @@ export interface CartItem {
 export interface Order {
   id: string;
   orderNumber: string;
+  userId?: string | null;
   customerName: string;
   customerEmail: string;
   customerPhone: string;
@@ -61,6 +73,7 @@ export interface Order {
 
 export interface Subscription {
   id: string;
+  userId?: string | null;
   product: Product;
   plan: string;
   status: 'ACTIVE' | 'PAUSED' | 'CANCELLED';
@@ -71,4 +84,3 @@ export interface Subscription {
   startDate: string;
   nextBilling: string;
 }
-
