@@ -8,6 +8,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   register: (name: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  loginWithGoogle: () => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   updateProfile: (data: { name: string; phone?: string; address?: string; city?: string }) => Promise<{ success: boolean; error?: string }>;
 }
@@ -36,6 +37,64 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(null);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const syncFirebaseUser = async (firebaseUser: any) => {
+    try {
+      const res = await fetch('/api/auth/firebase-sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: firebaseUser.email,
+          displayName: firebaseUser.displayName,
+          photoURL: firebaseUser.photoURL,
+          uid: firebaseUser.uid,
+        }),
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        setUser(data.user);
+        return { success: true };
+      }
+      return { success: false, error: data.error || 'Failed to sync Firebase account' };
+    } catch {
+      return { success: false, error: 'Network error syncing account' };
+    }
+  };
+
+  const loginWithGoogle = async () => {
+    try {
+      const { signInWithPopup } = await import('firebase/auth');
+      const { getFirebaseAuth, getGoogleProvider } = await import('@/lib/firebase');
+      const auth = await getFirebaseAuth();
+      if (!auth) {
+        return {
+          success: false,
+          error: 'Firebase Auth is only supported in browser environment.',
+        };
+      }
+      const provider = await getGoogleProvider();
+      const result = await signInWithPopup(auth, provider);
+      if (result.user) {
+        return await syncFirebaseUser(result.user);
+      }
+      return { success: false, error: 'Google sign-in was cancelled.' };
+    } catch (err: any) {
+      console.error('Google Sign-in error:', err);
+      if (err.code === 'auth/api-key-not-valid' || err.code === 'auth/invalid-api-key') {
+        return {
+          success: false,
+          error: 'Firebase API Key is missing. Please add your NEXT_PUBLIC_FIREBASE_API_KEY in the .env file.',
+        };
+      }
+      if (err.code === 'auth/unauthorized-domain') {
+        return {
+          success: false,
+          error: 'Domain not authorized in Firebase Console! Please add localhost to Authorized Domains.',
+        };
+      }
+      return { success: false, error: err.message || 'Google Sign-in failed.' };
     }
   };
 
@@ -78,6 +137,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
+      try {
+        const { signOut } = await import('firebase/auth');
+        const { getFirebaseAuth } = await import('@/lib/firebase');
+        const auth = await getFirebaseAuth();
+        if (auth) await signOut(auth);
+      } catch {
+        // ignore
+      }
       setUser(null);
     } catch {
       setUser(null);
@@ -103,7 +170,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updateProfile }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        login,
+        register,
+        loginWithGoogle,
+        logout,
+        updateProfile,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -116,4 +193,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
