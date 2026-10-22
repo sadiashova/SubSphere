@@ -1,0 +1,140 @@
+[
+  {
+    "id": 1,
+    "name": "Everyday Glow Box",
+    "thumbnail": "https://i.ibb.co/8HTQPQH/side-view-woman-using-vanity-case.jpg",
+    "banner": "https://i.ibb.co/8HTQPQH/side-view-woman-using-vanity-case.jpg",
+    "frequency": "Monthly",
+    "price": "29.99",
+    "description": "Your go-to box for daily radiance! Features essential makeup for a fresh and natural look.",
+    "tech_category": "Makeup Basics",
+    "features": [
+      "Lightweight Foundation/BB Cream",
+      "Natural Blush",
+      "Mascara",
+      "Lip Gloss/Tint"
+    ],
+    "subscription_benefits": [
+      "Access to exclusive makeup tutorials",
+      "Monthly beauty tips newsletter",
+      "Members-only discounts on full-size products"
+    ],
+    "ratings": 4.7,
+    "number_of_reviews": 250
+  },
+  {
+    "id": 2,
+    "name": "Glam Night Out Box",
+    "thumbnail": "https://i.ibb.co/d4KkRr1N/ey-Grx-IO3-Ru-CYr-CM7g-X44.webp",
+    "banner": "https://i.ibb.co/d4KkRr1N/ey-Grx-IO3-Ru-CYr-CM7g-X44.webp",
+    "frequency": "Bi-Monthly",
+    "price": "49.99",
+    "description": "Elevate your evening look with high-impact makeup essentials for a show-stopping appearance.",
+    "tech_category": "Glam Makeup",
+    "features": [
+      "Eyeshadow Palette (Smokey/Shimmer)",
+      "Liquid Eyeliner",
+      "Bold Lipstick",
+      "Highlighter"
+    ],
+    "subscription_benefits": [
+      "Early access to new glam product releases",
+      "Invitations to virtual makeup workshops",
+      "Bonus deluxe samples"
+    ],
+    "ratings": 4.9,
+    "number_of_reviews": 180
+  },
+  {
+    "id": 3,
+    "name": "Skincare Infused Makeup",
+    "thumbnail": "https://i.ibb.co/h1dhhdff/image-1536x1024.jpg",
+    "banner": "https://i.ibb.co/h1dhhdff/image-1536x1024.jpg",
+    "frequency": "Quarterly",
+    "price": "59.99",
+    "description": "Makeup that loves your skin! Discover products with beneficial skincare ingredients.",
+    "tech_category": "Hybrid Beauty",
+    "features": [
+      "Tinted Moisturizer with SPF",
+      "Cream Blush with Hyaluronic Acid",
+      "Lip Balm with nourishing oils",
+      "Setting Spray with antioxidants"
+    ],
+    "subscription_benefits": [
+      "Skincare-makeup routine guides",
+      "Expert tips for sensitive skin",
+      "Exclusive discounts on partner skincare brands"
+    ],
+    "ratings": 4.6,
+    "number_of_reviews": 120
+  },
+  {
+    "id": 4,
+    "name": "Lash & Brow Perfectors",
+    "thumbnail": "https://i.ibb.co/LD0WHfsG/inika-brow-perfector-espresso-borstel.webp",
+    "banner": "https://i.ibb.co/LD0WHfsG/inika-brow-perfector-espresso-borstel.webp",
+    "frequency": "Monthly",
+    "price": "24.99",
+    "description": "Focus on framing your eyes with perfect lashes and brows. Essential tools and products included.",
+    "tech_category": "Eye Enhancements",
+    "features": [
+      "Volumizing Mascara",
+      "Brow Pencil/Pomade",
+      "Clear Brow Gel",
+      "Lash Curler"
+    ],
+    "subscription_benefits": [
+      "Brow shaping video tutorials",
+      "Tips for lash growth and care",
+      "First look at new eye makeup tools"
+    ],
+    "ratings": 4.5,
+    "number_of_reviews": 150
+  },
+  {
+    "id": 5,
+    "name": "Lip Lover's Collection",
+    "thumbnail": "https://i.ibb.co/8gwvyhWH/col-best-sellers.webp",
+    "banner": "https://i.ibb.co/8gwvyhWH/col-best-sellers.webp",
+    "frequency": "Bi-Monthly",
+    "price": "34.99",
+    "description": "A curated selection of lip products from nourishing balms to bold lipsticks, perfect for every mood.",
+    "tech_category": "Lip Care & Color",
+    "features": [
+      "Matte Lipstick",
+      "Satin Finish Lipstick",
+      "Lip Liner",
+      "Hydrating Lip Mask"
+    ],
+    "subscription_benefits": [
+      "Seasonal lip color trend reports",
+      "Discounts on limited edition lip kits",
+      "Tips for perfect lip application"
+    ],
+    "ratings": 4.8,
+    "number_of_reviews": 95
+  },
+  {
+    "id": 6,
+    "name": "Pro Artist Picks",
+    "thumbnail": "https://i.ibb.co/gLvx70px/Professional-Makeup-Artist.png",
+    "banner": "https://i.ibb.co/gLvx70px/Professional-Makeup-Artist.png",
+    "frequency": "Quarterly",
+    "price": "69.99",
+    "description": "Get professional-grade makeup and tools used by top artists. Elevate your artistry!",
+    "tech_category": "Professional Makeup",
+    "features": [
+      "High-Pigment Eyeshadow Palette",
+      "Professional Brush Set (travel size)",
+      "Long-Wear Foundation Sample",
+      "Setting Spray"
+    ],
+    "subscription_benefits": [
+      "Access to masterclass snippets from pro artists",
+      "Exclusive Q&A sessions with makeup experts",
+      "Opportunity to test upcoming products"
+    ],
+    "ratings": 4.9,
+    "number_of_reviews": 70
+  }
+]
